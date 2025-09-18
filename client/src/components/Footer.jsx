@@ -23,7 +23,7 @@ function Footer() {
             <ul className="space-y-2">
               {/* Link hover color updated */}
               <li><Link to="/vehicles" className="hover:text-[var(--color-accent)] transition-colors">Vehicles</Link></li>
-              <li><Link to="/about" className="hover:text-[var(--color-accent)] transition-colors">About Us</Link></li>
+              <li><Link to="/" className="hover:text-[var(--color-accent)] transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-[var(--color-accent)] transition-colors">Contact</Link></li>
             </ul>
           </div>
