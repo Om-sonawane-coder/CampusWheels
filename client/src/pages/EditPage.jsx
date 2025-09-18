@@ -19,7 +19,7 @@ function EditPage() {
   useEffect(() => {
     const fetchVehicleData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/vehicles/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/vehicles/${id}`);
         if (!response.ok) throw new Error('Could not load vehicle details.');
         const data = await response.json();
         setFormData({
@@ -45,7 +45,7 @@ function EditPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api/vehicles/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/vehicles/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

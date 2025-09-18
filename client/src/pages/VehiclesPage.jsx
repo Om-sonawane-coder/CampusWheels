@@ -26,7 +26,7 @@ function VehiclesPage() {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`http://localhost:3000/api/vehicles?search=${debouncedSearchTerm}&page=${currentPage}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/vehicles?search=${debouncedSearchTerm}&page=${currentPage}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -52,7 +52,7 @@ function VehiclesPage() {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:3000/api/vehicles/${vehicleId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/vehicles/${vehicleId}`, {
         method: 'DELETE',
         headers: { 'x-auth-token': token },
       });

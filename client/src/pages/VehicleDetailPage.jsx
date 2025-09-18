@@ -10,7 +10,7 @@ function VehicleDetailPage() {
   useEffect(() => {
     const fetchVehicle = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/vehicles/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/vehicles/${id}`);
         if (!response.ok) throw new Error('Vehicle not found');
         const data = await response.json();
         setVehicle(data);

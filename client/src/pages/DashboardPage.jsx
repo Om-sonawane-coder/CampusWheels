@@ -35,7 +35,7 @@ function DashboardPage() {
   const handleDelete = async (vehicleId) => {
     if (!window.confirm('Are you sure you want to delete this listing?')) return;
     try {
-      const response = await fetch(`http://localhost:3000/api/vehicles/${vehicleId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/vehicles/${vehicleId}`, {
         method: 'DELETE',
         headers: { 'x-auth-token': token },
       });
