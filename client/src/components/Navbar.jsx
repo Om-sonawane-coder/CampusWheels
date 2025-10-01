@@ -4,7 +4,8 @@ import { AuthContext } from '../context/AuthContext';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { token, logout } = useContext(AuthContext);
+  // unreadCount ko context se nikalo
+  const { token, logout, unreadCount } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -31,6 +32,17 @@ function Navbar() {
             
             {token ? (
               <>
+                {/* === NAYA BADGE WALA LINK === */}
+                <li>
+                  <Link to="/chats" className={`${navLinkClasses} relative`}>
+                    Chats
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </Link>
+                </li>
                 <li><Link to="/dashboard" className={navLinkClasses}>My Listings</Link></li>
                 <li><Link to="/upload" className="bg-[var(--color-primary)] text-white font-bold py-2 px-4 rounded-lg hover:bg-[var(--color-secondary)] transition-all duration-200">Upload</Link></li>
                 <li>
@@ -61,6 +73,15 @@ function Navbar() {
           <Link to="/contact" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>Contact</Link>
           {token ? (
             <>
+              {/* === NAYA BADGE WALA LINK (MOBILE) === */}
+              <Link to="/chats" className={`${mobileNavLinkClasses} flex justify-between items-center`} onClick={() => setIsMenuOpen(false)}>
+                <span>Chats</span>
+                {unreadCount > 0 && (
+                  <span className="bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {unreadCount}
+                  </span>
+                )}
+              </Link>
               <Link to="/dashboard" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>My Listings</Link>
               <Link to="/upload" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>Upload</Link>
               <button onClick={handleLogout} className="w-full text-left bg-red-500 text-white font-bold py-2 px-3 rounded-md mt-2">

@@ -12,6 +12,8 @@ import EditPage from './pages/EditPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ChatPage from './pages/ChatPage.jsx';
+import ConversationsPage from './pages/ConversationsPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,18 @@ const router = createBrowserRouter([
             <EditPage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: '/chat/:receiverId', // <-- ':receiverId' add karo
+        element: (
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/chats',
+        element: <ProtectedRoute><ConversationsPage /></ProtectedRoute>
       },
       { 
         path: '/signup',
