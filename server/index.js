@@ -16,15 +16,25 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 
+// === NAYI CORS POLICY ===
+// Yahan par hum apne dono frontend URLs (local aur live) ko allow karenge
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://campus-wheels.vercel.app" // Tumhari Vercel ki live URL (agar alag hai toh change kar dena)
+];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"], // Saare zaroori methods
+};
+// =========================
+
 const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT"]
-  }
+  cors: corsOptions // Socket.IO ke liye bhi same CORS policy use karo
 });
 
 // ====== MIDDLEWARE ======
-app.use(cors());
+app.use(cors(corsOptions)); // Express ke liye bhi same CORS policy use karo
 app.use(express.json());
 
 // ====== DATABASE CONNECTION ======
@@ -68,7 +78,6 @@ app.put('/api/messages/read/:senderId', auth, async (req, res) => {
       { $set: { isRead: true } }
     );
     
-    // NAYI LINE: Bhejne waale ko batao ki message padh liya gaya hai
     io.to(senderId).emit('messages_read', { conversationPartnerId: receiverId });
 
     res.json({ msg: 'Messages marked as read' });
